@@ -56,4 +56,33 @@ chatRouter.post('/', async (req, res) => {
   }
 })
 
+// chatRouter.put('/', async (req, res) => {
+//     const { content } = req.body
+
+//     const receiver
+
+
+// })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 module.exports = chatRouter
