@@ -1,0 +1,32 @@
+{
+  "name": "chatapp",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js",
+    "lint": "eslint --report-unused-disable-directives --max-warnings 0 --fix"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@prisma/client": "^5.20.0",
+    "bcrypt": "^5.1.1",
+    "express": "^4.21.0",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.13.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.9.0",
+    "@stylistic/eslint-plugin-js": "^2.7.1",
+    "globals": "^15.9.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "eslint": "^9.12.0",
+    "express-async-errors": "^3.1.1",
+    "nodemon": "^3.1.7",
+    "prisma": "^5.20.0"
+  }
+}
