@@ -22,7 +22,8 @@ model Users {
   createdAt    DateTime     @default(now())
   groups       Groups[]
   groupMembers GroupMembers[]
-  messagesSent Messages[]   @relation("UserMessages")
+  sentMessages Messages[]   @relation("SenderMessages")
+  receivedMessages Messages[] @relation("ReceiverMessages")
 }
 
 model Groups {
@@ -46,11 +47,13 @@ model GroupMembers {
 }
 
 model Messages {
-  id        String     @id @default(cuid())
-  content   String
-  createdAt DateTime   @default(now())
-  sender    Users      @relation(fields: [senderId], references: [id], name: "UserMessages")
-  senderId  String
-  group     Groups     @relation(fields: [groupId], references: [id], name: "GroupMessages")
-  groupId   String
+  id         String   @id @default(cuid())
+  content    String
+  createdAt  DateTime @default(now())
+  sender     Users    @relation(fields: [senderId], references: [id], name: "SenderMessages")
+  senderId   String
+  receiver   Users    @relation(fields: [receiverId], references: [id], name: "ReceiverMessages")
+  receiverId String
+  group      Groups?  @relation(fields: [groupId], references: [id], name: "GroupMessages")
+  groupId    String?
 }

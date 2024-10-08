@@ -26,6 +26,7 @@ CREATE TABLE "GroupMembers" (
     "userId" TEXT NOT NULL,
     "groupId" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "admin" BOOLEAN NOT NULL DEFAULT false,
 
     CONSTRAINT "GroupMembers_pkey" PRIMARY KEY ("id")
 );
@@ -36,7 +37,8 @@ CREATE TABLE "Messages" (
     "content" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "senderId" TEXT NOT NULL,
-    "groupId" TEXT NOT NULL,
+    "receiverId" TEXT NOT NULL,
+    "groupId" TEXT,
 
     CONSTRAINT "Messages_pkey" PRIMARY KEY ("id")
 );
@@ -60,4 +62,7 @@ ALTER TABLE "GroupMembers" ADD CONSTRAINT "GroupMembers_groupId_fkey" FOREIGN KE
 ALTER TABLE "Messages" ADD CONSTRAINT "Messages_senderId_fkey" FOREIGN KEY ("senderId") REFERENCES "Users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Messages" ADD CONSTRAINT "Messages_groupId_fkey" FOREIGN KEY ("groupId") REFERENCES "Groups"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Messages" ADD CONSTRAINT "Messages_receiverId_fkey" FOREIGN KEY ("receiverId") REFERENCES "Users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Messages" ADD CONSTRAINT "Messages_groupId_fkey" FOREIGN KEY ("groupId") REFERENCES "Groups"("id") ON DELETE SET NULL ON UPDATE CASCADE;

@@ -4,6 +4,6 @@ const PORT = process.env.PORT
 const POSTGRES_URI = process.env.DATABASE_URL
 
 module.exports = {
-    PORT,
-    POSTGRES_URI
+  PORT,
+  POSTGRES_URI
 }
