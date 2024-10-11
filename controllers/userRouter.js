@@ -38,6 +38,7 @@ userRouter.post('/', async (req, res) => {
         passwordHash
       }
     })
+    // eslint-disable-next-line no-unused-vars
     const { passwordHash: _, ...rest } = newUser
     res.status(201).json(rest)
   }catch(e){
