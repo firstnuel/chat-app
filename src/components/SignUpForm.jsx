@@ -1,49 +1,125 @@
 import { useField } from '../hooks/useField'
 import userService from '../services/user'
+import logoIcon from '../assets/icons/logoIcon.png'
+import '../styles/login.css'
+import { useEffect, useRef, useState } from 'react'
+import Typed from 'typed.js'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { clearError, setError } from '../reducers/errorReducer'
+import ThemeToggle from './ThemeToggle'
 
 
 const SignUpForm = () => {
+
+  const error = useSelector(state => state.error)
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+  const [isLoading, setIsLoading] = useState(false)
+  const style = error.status ? { color: 'red' } : { color: 'white' }
 
   const { reset: nameReset, ...name } = useField('Name', 'text')
   const { reset: usernameReset, ...username } = useField('Username', 'text')
   const { reset: emailReset, ...email } = useField('Email', 'email')
   const { reset: passwordReset, ...password } = useField('Password', 'password')
+  const typedElement = useRef(null)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    setIsLoading(true)
+    dispatch(clearError())
+
     const newUser = {
       name: name.value,
       username: username.value,
       email: email.value,
       password: password.value
     }
-    const user = await userService.create(newUser)
-    console.log(user)
+
+    try {
+      const user = await userService.create(newUser)
+      if (user) {
+        nameReset()
+        usernameReset()
+        emailReset()
+        passwordReset()
+        navigate('/login')
+      }
+    } catch (error) {
+      dispatch(setError(error))
+      console.error('Error creating user:', error)
+    } finally {
+      setIsLoading(false)
+    }
   }
 
-  return(
-    <div>
-      <h2>Sign Up</h2>
-      <form onSubmit={handleSubmit} className="contact-form" >
-        <div>
-                    Username: <input {...username} minLength={5} />
+
+  useEffect(() => {
+    const typed = new Typed(typedElement.current, {
+      strings: ['Connect.', 'Chat..', 'Hangout...'],
+      typeSpeed: 100,
+      backSpeed: 50,
+      backDelay: 2000,
+      loop: true
+    })
+
+    return () => {
+      typed.destroy()
+    }
+  }, [])
+
+  return (
+    <div className="loginPage">
+      <div className="logo-nav">
+        <div className="logo-text">
+          <div className="main-logo">
+            <img src={logoIcon} className="main-logo-icon" />
+          </div>
+          <div className="main-text">Buzz-Me</div>
         </div>
-        <div>
-                    Name: <input {...name} minLength={5} />
+        <ThemeToggle />
+      </div>
+      <div className="container">
+        <div className="form-container">
+          <div className='login form'>
+            <h1 className='w-head wlcome'>Join Us</h1>
+            <h2  style={error.status? style : null} className='w-body wlcome'>{error.status? error.msg
+              :'Create your account'}</h2>
+            <form onSubmit={handleSubmit}>
+              <div>
+                <input {...name} placeholder="name" autoComplete="name" />
+              </div>
+              <div>
+                <input {...username} placeholder="username" autoComplete="username" minLength={5} />
+              </div>
+              <div>
+                <input {...email} placeholder="email" autoComplete="email" type="email" />
+              </div>
+              <div>
+                <input {...password} placeholder="password" type="password" autoComplete="new-password" minLength={5} />
+              </div>
+              <div className="button-div">
+                <button className={isLoading? 'loading': 'null'}
+                  disabled={isLoading? true : false}
+                  type="submit">{isLoading? 'creating..' :'sign up' }</button>
+              </div>
+              <div className="sign-up">Already have an account?
+                <a href="/login" className="sign-up-link"> Log In</a>
+              </div>
+            </form>
+          </div>
         </div>
-        <div>
-                    Email: <input {...email} />
+        <div className="welocme">
+          <div><img src={logoIcon} className="main-logo-icon" /></div>
+          <span className="page-text" ref={typedElement}></span>
         </div>
-        <div>
-                    Password: <input {...password} />
-        </div>
-        <div className="button-div">
-          <button type="submit">login</button>
-        </div>
-      </form>
+      </div>
+      <div className="footer">
+        <div className="footer-text">right reserved Emmanuel Ikwunna</div>
+      </div>
     </div>
   )
 }
-
 
 export default SignUpForm

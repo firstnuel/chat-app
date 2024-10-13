@@ -1,9 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import messageService from '../services/message'
-import { useState } from 'react'
-import { isSameMinute } from '../utils/dateformatter'
 
-
+const date = new Date()
 const chatSlice = createSlice({
   name: 'chats',
   initialState: [],
@@ -41,7 +39,8 @@ export const sendChat = (chatData) => {
   return async dispatch => {
     try{
       const chat = await messageService.send(chatData)
-      setLastMsgTime(chat.createdAt)
+      const lastTime = chat.createdAt || date
+      setLastMsgTime(lastTime)
       dispatch(newChat(chat))
     } catch (e){
       console.error(e)

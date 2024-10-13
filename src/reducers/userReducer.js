@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import userService from '../services/user'
+import { setError } from './errorReducer'
 
 const userSlice = createSlice({
   name : 'user',
@@ -38,8 +39,8 @@ export const loginUser = (userData) => {
         userService.setToken(user.token)
         dispatch(setUser(user))
       }
-    } catch (e) {
-      console.error(e)
+    } catch (err) {
+      dispatch(setError(err))
     }
   }
 }

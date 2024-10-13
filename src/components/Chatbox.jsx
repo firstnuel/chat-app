@@ -1,21 +1,26 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { useField } from '../hooks/useField'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { initializeChats, sendChat, LastMsgTime } from '../reducers/chatReducer'
-import { formatDate, isSameMinute } from '../utils/dateformatter'
+import { formatDate, isSameMinute, isSameMonthAndYear } from '../utils/dateformatter'
 import sendIcon from '../assets/icons/sendIcon.png'
 import '../styles/chatbox.css'
+import { useNavigate } from 'react-router-dom'
 
 
 const Chatbox = () => {
 
+  const chatEndRef = useRef(null)
+
   const { reset, ...chatBox } = useField('Chat-box', 'text')
   const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  const sender = useSelector(state => state.user)
+  if (!sender) navigate('/login')
 
   const receiver = useSelector(state => state.receiver)
-  const sender = useSelector(state => state.user)
   const chats = useSelector(state => state.chats)
-
 
   useEffect(() => {
     if (sender && receiver) {
@@ -23,18 +28,33 @@ const Chatbox = () => {
     }
   }, [dispatch, sender, receiver])
 
-  const handleClick = (event) => {
+  useEffect(() => {
+    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }, [chats])
 
+  const handlePress = (event) => {
     if (chatBox.value.trim() && receiver && event.key === 'Enter') {
       dispatch(sendChat({
         senderId: sender.id,
         receiverId: receiver.id,
-        content: chatBox.value
+        content: chatBox.value,
+        lastMsgTime: LastMsgTime
       }))
       reset()
     }
   }
 
+  const handleClick = () => {
+    if (chatBox.value.trim() && receiver) {
+      dispatch(sendChat({
+        senderId: sender.id,
+        receiverId: receiver.id,
+        content: chatBox.value,
+        lastMsgTime: LastMsgTime
+      }))
+      reset()
+    }
+  }
   if (!receiver) return <div className='chat-page'>
     <div className="no-chat-info"> Click on a user to start chat </div>
   </div>
@@ -58,15 +78,19 @@ const Chatbox = () => {
         {chats && chats.length > 0 ?
           chats.map(chat =>
             <div key={chat.id} className='msgdate'>
-              <div className="chat-time">{isSameMinute(chat.createdAt, LastMsgTime) ? null :  formatDate(chat.createdAt)}</div>
+              <div className={isSameMinute(chat.createdAt, chat.lastMsgTime) ? 'hide': 'chat-time'}>{
+                isSameMonthAndYear(chat.createdAt, chat.lastMsgTime) ?
+                  formatDate(chat.createdAt)
+                  :formatDate(chat.createdAt)} </div>
               <div className={chat.senderId === sender.id ? 'sender' : 'receiver'}>{chat.content}</div>
+              <div ref={chatEndRef} />
             </div>
           ) : <div className="chat-load">Say Hi...</div>
         }
       </div>
       <div className="chat-input">
-        <input {...chatBox} onKeyDown={handleClick}/>
-        <img src={sendIcon}  className="send-icon" />
+        <input {...chatBox} onKeyDown={handlePress}/>
+        <img src={sendIcon} onClick={handleClick} className="send-icon" />
       </div>
     </div>
   )

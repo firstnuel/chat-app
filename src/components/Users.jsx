@@ -3,8 +3,9 @@ import { useNavigate } from 'react-router-dom'
 import { redirect } from 'react-router-dom'
 import { useEffect } from 'react'
 import { setReceiver } from '../reducers/receiverReducer'
+import expandIcon from '../assets/icons/expandIcon.png'
+import shrinkIcon from '../assets/icons/shrinkIcon.png'
 import '../styles/users.css'
-
 
 
 const UserCard = ({ user }) => {
@@ -14,7 +15,7 @@ const UserCard = ({ user }) => {
       <div className="img">IMG</div>
       <div className="card-details">
         <div className="name">{user.name}</div>
-        <div className="text">chat user</div>
+        <div className="text">@{user.username}</div>
       </div>
     </div>
   )
@@ -27,9 +28,7 @@ const Users = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  useEffect(() => {
-    if (!user) redirect('/login')
-  }, [user])
+
 
   const users = useSelector(state => state.users)
   const filteredUsers = users.filter(usr => usr.id !== user.id)
@@ -49,8 +48,11 @@ const Users = () => {
 
   return(
     <div className='user-container'>
-      <div className='head'>
-            CHATS
+      <div className="usrnav">
+        <div className='head'>CHATS</div>
+        <div className='expand'>
+          <img src={expandIcon} className="nav-view-icon icon" />
+        </div>
       </div>
       <div className="users" >
         {filteredUsers.map(usr =>
