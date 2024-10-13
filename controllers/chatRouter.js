@@ -29,7 +29,7 @@ chatRouter.get('/', async (req, res) => {
 
 
 chatRouter.post('/', async (req, res) => {
-  const { receiverId, senderId, content } = req.body
+  const { receiverId, senderId, content, lastMsgTime } = req.body
 
   const receiver = await prisma.users.findUnique({
     where: {
@@ -47,6 +47,7 @@ chatRouter.post('/', async (req, res) => {
         content,
         senderId,
         receiverId,
+        lastMsgTime
       }
     })
     res.status(201).json(newMsg)
@@ -60,7 +61,6 @@ chatRouter.post('/', async (req, res) => {
 //     const { content } = req.body
 
 //     const receiver
-
 
 // })
 

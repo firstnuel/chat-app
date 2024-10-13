@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Messages" ADD COLUMN     "lastMsgTime" TIMESTAMP(3),
+ALTER COLUMN "createdAt" SET DEFAULT CURRENT_TIMESTAMP;

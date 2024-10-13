@@ -1,0 +1,6 @@
+-- AlterTable
+ALTER TABLE "Messages" ALTER COLUMN "createdAt" DROP NOT NULL,
+ALTER COLUMN "createdAt" DROP DEFAULT;
+
+-- AlterTable
+ALTER TABLE "Users" ALTER COLUMN "createdAt" SET DEFAULT CURRENT_TIMESTAMP;
