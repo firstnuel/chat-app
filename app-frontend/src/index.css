@@ -1,8 +1,21 @@
 :root {
     --background-color: #000000;
-    --text-color: #ffffff;
+    --primary-text: #ffffff;
+    --secondary-text: #000000;
     --font-size-base: 15px;
+    --secondary-color:#7937c4;
+    --tertiary-color: #f1f1f1;
+    --border-color: #808080;
+    --buton-inactive: #808080;
+    --secondary-border-color: #363535;
+    --hover-color: #ae8fd2;
   }
+
+  [data-theme='light'] {
+    --background-color: #f1f1f1;
+    --primary-text: #000000;
+    --secondary-text: #555555;
+}
 
   @font-face {
     font-family: 'Poppins';
@@ -14,7 +27,7 @@
 @font-face {
     font-family: 'Poppins';
     src: url('../src/assets/fonts/Poppins-Bold.ttf') format('ttf');
-    font-weight: 700; /* Bold weight */
+    font-weight: 700;
     font-style: normal;
 }
 
@@ -26,6 +39,6 @@
     font-family: 'Poppins', sans-serif;
     background-color: var(--background-color);
     font-size: var(--font-size-base);
-    color: var(--text-color);
+    color: var(--primary-text);
   }
   

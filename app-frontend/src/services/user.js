@@ -13,9 +13,18 @@ const login = async (loginData) => {
 }
 
 const create = async (newUser) => {
-  const response = await axios.post(userUrl, newUser)
-  return response.data
+  return new Promise((resolve, reject) => {
+    setTimeout(async () => {
+      try {
+        const response = await axios.post(userUrl, newUser)
+        resolve(response.data)
+      } catch (error) {
+        reject(error)
+      }
+    }, 3000)
+  })
 }
+
 
 const users = async () => {
   const config =  {

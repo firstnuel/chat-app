@@ -3,6 +3,8 @@ import userReducer from './reducers/userReducer'
 import usersReducer from './reducers/usersReducer'
 import chatReducer from './reducers/chatReducer'
 import receiverReducer from './reducers/receiverReducer'
+import errorReducer from './reducers/errorReducer'
+import themeReducer from './reducers/themeReducer'
 
 
 const store = configureStore({
@@ -10,7 +12,9 @@ const store = configureStore({
     'user': userReducer,
     'users': usersReducer,
     'chats': chatReducer,
-    'receiver': receiverReducer
+    'receiver': receiverReducer,
+    'error': errorReducer,
+    'theme': themeReducer
   }
 })
 

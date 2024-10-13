@@ -1,10 +1,10 @@
 .users{
     display: flex;
-    height: 91%;
+    height: 79%;
     gap: 10px;
     flex-direction: column;
     margin-top: 10px;
-    overflow-y: scroll;
+    overflow-x: scroll;
 }
 .user-card{
     display: flex;
@@ -19,7 +19,16 @@
     flex-direction: column;
     padding: 10px;
     width: 30%;
-    border-right: 1px solid grey;
+    border-right: 1px solid var(--border-color);
+    height: 93%;
+}
+.usrnav{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 10px;
+    justify-content: space-between;
+    margin: 0 10px;
 }
 .head{
     height: 10%;
@@ -33,16 +42,16 @@
     height: 50px;
     width: 50px;
     border-radius: 50%;
-    border: 1px solid #7937c4;
+    border: 1px solid var(--secondary-color);
     text-align: center;
 }
 .name{
-    font-size: 1.3em;
+    font-size: 1.2em;
     font-weight: 400;
 }
 .text{
-    font-size: 1em;
-    font-weight: 300;
+    font-size: 0.8em;
+    font-style: italic;
 }
 .card-details{
     display: flex;
@@ -50,3 +59,19 @@
     gap: 5px;
     width: 90%;
 }
+.nav-view-icon{
+    height: 20px !important;
+    width: 20px !important;
+}
+
+@media screen and (max-width: 1024px) {
+    .user-container {
+        width: 8%;
+        border-right: none;     
+    }
+    .users,.head,.user-card {
+        display: none;
+    }
+}
+
+
