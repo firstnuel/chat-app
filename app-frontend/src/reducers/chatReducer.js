@@ -19,7 +19,7 @@ const chatSlice = createSlice({
 })
 
 export let LastMsgTime = null
-const setLastMsgTime = (time) => LastMsgTime = time
+export const setLastMsgTime = (time) => LastMsgTime = time
 
 export const { setChat, newChat, clearChat } = chatSlice.actions
 export default chatSlice.reducer

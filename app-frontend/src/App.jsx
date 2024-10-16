@@ -4,6 +4,7 @@ import { fetchUsersChats } from './reducers/userChatsReducer.js'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import { fetchAndSetUser } from './reducers/userReducer'
+import { fetchGroups } from './reducers/groupsReducer.js'
 import { Route, Routes, Navigate } from 'react-router-dom'
 import SignUpForm from './components/signUpForm'
 import ChatPage from './components/ChatPage.jsx'
@@ -25,6 +26,10 @@ const App = () => {
 
   useEffect(() => {
     if (user) dispatch(fetchUsers())
+  }, [dispatch, user])
+
+  useEffect(() => {
+    if (user) dispatch(fetchGroups())
   }, [dispatch, user])
 
   return(

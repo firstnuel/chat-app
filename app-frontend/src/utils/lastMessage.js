@@ -4,7 +4,7 @@ const truncateMessage = (msg, maxLength = 50) => {
   return msg.length > maxLength ? `${msg.slice(0, maxLength)}...` : msg
 }
 
-export const lastMsgTime = (sentMessage, receivedMessage) => {
+export const lastMsgTime = (sentMessage, receivedMessage=null) => {
   const sentMsg = sentMessage[0]
   const receivedMsg = receivedMessage[0]
 
@@ -19,7 +19,7 @@ export const lastMsgTime = (sentMessage, receivedMessage) => {
 }
 
 
-export const lastMsg = (sentMessage, receivedMessage) => {
+export const lastMsg = (sentMessage, receivedMessage=null) => {
   const sentMsg = sentMessage[0]
   const receivedMsg = receivedMessage[0]
 
