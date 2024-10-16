@@ -6,12 +6,15 @@ const receiverSlice = createSlice({
   reducers: {
     setReceiver(state, action){
       return action.payload
+    },
+    resetReceiver(){
+      return null
     }
   }
 })
 
 
-export const { setReceiver } = receiverSlice.actions
+export const { setReceiver, resetReceiver } = receiverSlice.actions
 export default receiverSlice.reducer
 
 

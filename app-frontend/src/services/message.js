@@ -23,7 +23,7 @@ const fetchGroup = async (senderId, groupId) => {
       groupId
     }
   }
-  const response = await axios.get(`${BaseUrl}/groups`, config)
+  const response = await axios.get(`${BaseUrl}/group`, config)
   return response.data
 }
 
@@ -39,7 +39,7 @@ const sendGroup = async (msgData) => {
   const config = {
     headers:  { Authorization: token },
   }
-  const response = await axios.post(`${BaseUrl}/groups`, msgData, config)
+  const response = await axios.post(`${BaseUrl}/group`, msgData, config)
   return response.data
 }
 

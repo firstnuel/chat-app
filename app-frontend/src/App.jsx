@@ -37,6 +37,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Navigate to="/chats" /> } />
         <Route path='/chats/:id' element={<ChatPage />}/>
+        <Route path='/chats/groups/:id' element={<ChatPage />}/>
         <Route path='/chats' element={<ChatPage />}/>
         <Route path="/login" element={<LoginForm />} />
         <Route path="/signup" element={<SignUpForm />} />

@@ -5,8 +5,11 @@ const truncateMessage = (msg, maxLength = 50) => {
 }
 
 export const lastMsgTime = (sentMessage, receivedMessage=null) => {
+
   const sentMsg = sentMessage[0]
   const receivedMsg = receivedMessage[0]
+
+  if(!sentMsg && !receivedMsg) return ''
 
   if (!sentMsg) return new Date(receivedMsg.createdAt).getTime()
   if (!receivedMsg) return new Date(sentMsg.createdAt).getTime()
@@ -19,9 +22,11 @@ export const lastMsgTime = (sentMessage, receivedMessage=null) => {
 }
 
 
-export const lastMsg = (sentMessage, receivedMessage=null) => {
+export const lastMsg = (sentMessage=null, receivedMessage=null) => {
   const sentMsg = sentMessage[0]
   const receivedMsg = receivedMessage[0]
+
+  if(!sentMsg && !receivedMsg) return ''
 
   if (!sentMsg) return truncateMessage(receivedMsg.content)
   if (!receivedMsg) return truncateMessage(sentMsg.content)
