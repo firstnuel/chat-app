@@ -3,6 +3,7 @@ import axios from 'axios'
 const loginUrl = '/api/login'
 const signupUrl = 'api/signup'
 const userUrl = '/api/users'
+const groupUrl = 'api/groups'
 
 export let token = null
 
@@ -34,6 +35,14 @@ const users = async () => {
   return response.data
 }
 
+const groups = async () => {
+  const config =  {
+    headers: { Authorization: token },
+  }
+  const response = await axios.get(groupUrl, config)
+  return response.data
+}
+
 const userChats = async ( userId ) => {
   const config = {
     headers: { Authorization: token },
@@ -47,4 +56,4 @@ const userChats = async ( userId ) => {
 
 
 
-export default { setToken, login, users, create, userChats }
+export default { setToken, login, users, create, userChats, groups }

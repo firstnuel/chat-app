@@ -6,7 +6,9 @@ import receiverReducer from './reducers/receiverReducer'
 import errorReducer from './reducers/errorReducer'
 import themeReducer from './reducers/themeReducer'
 import userChatsReducer from './reducers/userChatsReducer'
+import groupChatReducer from './reducers/groupChatReducer'
 import viewReducer from './reducers/viewReducer'
+import groupsReducers from './reducers/groupsReducer'
 
 
 const store = configureStore({
@@ -18,6 +20,8 @@ const store = configureStore({
     'error': errorReducer,
     'theme': themeReducer,
     'userChats': userChatsReducer,
+    'groupChat': groupChatReducer,
+    'groups': groupsReducers,
     'view': viewReducer
   }
 })

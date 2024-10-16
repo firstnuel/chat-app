@@ -1,5 +1,6 @@
 import Users from './Users'
 import Chats from './Chats'
+import Groups from './Group'
 import { useSelector } from 'react-redux'
 import '../styles/users.css'
 
@@ -12,7 +13,8 @@ const View = () => {
   return(
     <div className='user-container'>
       {view === 'chats'? <Chats />
-        : <Users />
+        : view === 'users'? <Users />
+          : <Groups />
       }
 
     </div>
