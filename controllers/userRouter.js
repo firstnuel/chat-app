@@ -1,6 +1,5 @@
 const userRouter = require('express').Router()
 const prisma = require('../models/prismaClient')
-const bcrypt = require('bcrypt')
 
 userRouter.get('/', async (req, res) => {
   try{
@@ -11,6 +10,7 @@ userRouter.get('/', async (req, res) => {
         email: true,
         username: true,
         createdAt: true,
+        imageLink: true,
       }
     })
     res.json(users)
@@ -20,31 +20,82 @@ userRouter.get('/', async (req, res) => {
   }
 })
 
-userRouter.post('/', async (req, res) => {
-  const { name, email, username, password } = req.body
+userRouter.get('/chats', async (req, res) => {
+  const { userId } = req.query
+  const user = req.user
 
-  if (!username || username.length < 3 || !password || password.length < 3) return res.status(400).json({
-    error: 'username or name is less than minLength of (3)' })
+  if (!userId || userId !== user.id) {
+    return res.status(401).json({ error: 'Not Authorized' })
+  }
 
-  const saltRounds = 10
-
-  try{
-    const passwordHash = await bcrypt.hash(password, saltRounds)
-    const newUser = await prisma.users.create({
-      data:  {
-        name,
-        email,
-        username,
-        passwordHash
-      }
+  try {
+    const usersChattedWith = await prisma.users.findMany({
+      where: {
+        OR: [
+          {
+            sentMessages: {
+              some: {
+                receiverId: userId,
+              },
+            },
+          },
+          {
+            receivedMessages: {
+              some: {
+                senderId: userId,
+              },
+            },
+          },
+        ],
+        NOT: { id: userId },
+      },
+      select: {
+        id: true,
+        email: true,
+        username: true,
+        name: true,
+        createdAt: true,
+        imageLink: true,
+        sentMessages: {
+          take: 1,
+          orderBy: {
+            createdAt: 'desc',
+          },
+          where: {
+            receiverId: userId,
+          },
+          select: {
+            content: true,
+            createdAt: true,
+            senderId: true,
+            receiverId: true,
+          },
+        },
+        receivedMessages: {
+          take: 1,
+          orderBy: {
+            createdAt: 'desc',
+          },
+          where: {
+            senderId: userId,
+          },
+          select: {
+            content: true,
+            createdAt: true,
+            senderId: true,
+            receiverId: true,
+          },
+        },
+      },
     })
-    // eslint-disable-next-line no-unused-vars
-    const { passwordHash: _, ...rest } = newUser
-    res.status(201).json(rest)
-  }catch(e){
-    console.error(e)
-    res.status(500).json({ error: 'An error occurred while creating the user.' })
+    res.json(usersChattedWith)
+
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ error: 'An error occurred while retrieving users.' })
   }
 })
+
+
 
 module.exports = userRouter

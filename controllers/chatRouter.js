@@ -6,14 +6,16 @@ chatRouter.get('/', async (req, res) => {
   const { senderId, receiverId } = req.query
   const user = req.user
 
-  if (senderId !== user.id) return res.status(401).json({ error: 'Not Authorized' })
+  if (senderId !== user.id) {
+    return res.status(401).json({ error: 'Not Authorized' })
+  }
 
   try {
     const messages = await prisma.messages.findMany({
       where: {
         OR: [
-          { senderId: senderId, receiverId: receiverId },
-          { senderId: receiverId, receiverId: senderId }
+          { senderId: senderId, receiverId: receiverId, groupId: null },
+          { senderId: receiverId, receiverId: senderId, groupId: null }
         ]
       },
       orderBy: {
@@ -24,6 +26,30 @@ chatRouter.get('/', async (req, res) => {
   } catch (e) {
     logger.error(e)
     res.status(500).json({ error: 'An error occurred while retrieving messages.' })
+  }
+})
+
+
+
+chatRouter.get('/group', async (req, res) => {
+  const { senderId, groupId } = req.query
+  const user = req.user
+
+  if (senderId !== user.id) return res.status(401).json({ error: 'Not Authorized' })
+
+  try {
+    const messages = await prisma.messages.findMany({
+      where: {
+        groupId: groupId,
+      },
+      orderBy: {
+        createdAt: 'asc'
+      }
+    })
+    res.json(messages)
+  } catch (e) {
+    logger.error(e)
+    res.status(500).json({ error: 'An error occurred while retrieving group messages.' })
   }
 })
 
@@ -57,11 +83,73 @@ chatRouter.post('/', async (req, res) => {
   }
 })
 
+chatRouter.post('/group', async (req, res) => {
+  const { groupId, senderId, content, lastMsgTime } = req.body
+  const user = req.user
+
+  const group = await prisma.groups.findUnique({
+    where: { id: groupId }
+  })
+
+  if (!group) {
+    return res.status(404).json({ error: 'Group not found' })
+  }
+
+  if (senderId !== user.id) {
+    return res.status(401).json({ error: 'Not authorized' })
+  }
+
+  const isGroupMember = await prisma.groupMembers.findFirst({
+    where: {
+      groupId: groupId,
+      userId: senderId
+    }
+  })
+
+  if (!isGroupMember) {
+    return res.status(403).json({ error: 'User is not a member of the group' })
+  }
+
+  try {
+    const newMsg = await prisma.messages.create({
+      data: {
+        content,
+        senderId,
+        groupId,
+        lastMsgTime
+      }
+    })
+
+    res.status(201).json(newMsg)
+  } catch (e) {
+    logger.error(e)
+    res.status(500).json({ error: 'An error occurred while sending the message.' })
+  }
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // chatRouter.put('/', async (req, res) => {
 //     const { content } = req.body
 
 //     const receiver
-
 // })
 
 
