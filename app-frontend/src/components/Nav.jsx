@@ -4,19 +4,29 @@ import { useDispatch, useSelector } from 'react-redux'
 import { logOut } from '../reducers/userReducer'
 import { useNavigate } from 'react-router-dom'
 import ThemeToggle from './ThemeToggle'
-
+import { viewChats, viewUsers } from '../reducers/viewReducer'
 
 const Nav = () => {
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const theme = useSelector(state => state.theme)
+  const updateUrl = (newView) => window.history.replaceState(null, '', `/${newView}`)
 
   const handleLogOut = () => {
     dispatch(logOut())
     navigate('/login')
   }
 
+  const handleChats = () => {
+    updateUrl('chats')
+    dispatch(viewChats())
+  }
+
+  const handleUsers = () => {
+    updateUrl('users')
+    dispatch(viewUsers())
+  }
 
   return(
     <div className="nav">
@@ -24,22 +34,23 @@ const Nav = () => {
       <div className="menu">
         <div className="chat"><img src={theme === 'dark' ? icons.chatIcon :
           icons.darkChatIcon
-        } title="Chat" className="icon" /></div>
+        } title="Chats" className="icon" onClick={handleChats}/></div>
+        <div className="user-st"><img src={theme === 'dark' ? icons.userIcon :
+          icons.darkUserIcon
+        } title="Users" className="icon"  onClick={handleUsers}/></div>
         <div className="group"><img src={theme === 'dark' ? icons.groupIcon :
           icons.darkGroupIcon
         } title="Groups" className="icon" /></div>
         <div className="search"><img src={theme === 'dark' ? icons.searchIcon :
           icons.darkSearchIcon
         } title="Search" className="icon" /></div>
-        <div className="user-st"><img src={theme === 'dark' ? icons.userIcon :
-          icons.darkUserIcon
-        } title="User" className="icon" /></div>
+
       </div>
       <div className="log-out">
         <ThemeToggle />
         <img src={theme === 'dark' ? icons.logoutIcon :
           icons.darkLogoutIcon
-        } onClick={handleLogOut}title="Log Out" className="icon" /></div>
+        } onClick={handleLogOut} title="Log Out" className="icon" /></div>
     </div>
   )
 }

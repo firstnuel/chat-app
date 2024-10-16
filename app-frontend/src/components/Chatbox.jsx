@@ -1,24 +1,19 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { useField } from '../hooks/useField'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { initializeChats, sendChat, LastMsgTime } from '../reducers/chatReducer'
 import { formatDate, isSameMinute, isSameMonthAndYear } from '../utils/dateformatter'
 import sendIcon from '../assets/icons/sendIcon.png'
 import '../styles/chatbox.css'
-import { useNavigate } from 'react-router-dom'
-
 
 const Chatbox = () => {
 
   const chatEndRef = useRef(null)
-
   const { reset, ...chatBox } = useField('Chat-box', 'text')
+  // const [chatType, setChatType] = useState('onOneChat')
+
   const dispatch = useDispatch()
-  const navigate = useNavigate()
-
   const sender = useSelector(state => state.user)
-  if (!sender) navigate('/login')
-
   const receiver = useSelector(state => state.receiver)
   const chats = useSelector(state => state.chats)
 

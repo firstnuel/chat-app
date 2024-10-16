@@ -1,6 +1,6 @@
 .chat-page {
     width: 100%;
-    height: 98vh;
+    height: 100%;
 }
 .chat-head {
     border-bottom: 1px solid var(--secondary-border-color);

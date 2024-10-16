@@ -12,7 +12,7 @@
   }
 
   [data-theme='light'] {
-    --background-color: #f1f1f1;
+    --background-color: #FFFFF0;
     --primary-text: #000000;
     --secondary-text: #555555;
 }
@@ -41,4 +41,3 @@
     font-size: var(--font-size-base);
     color: var(--primary-text);
   }
-  
