@@ -1,6 +1,7 @@
 import axios from 'axios'
 
 const loginUrl = '/api/login'
+const signupUrl = 'api/signup'
 const userUrl = '/api/users'
 
 export let token = null
@@ -16,7 +17,7 @@ const create = async (newUser) => {
   return new Promise((resolve, reject) => {
     setTimeout(async () => {
       try {
-        const response = await axios.post(userUrl, newUser)
+        const response = await axios.post(signupUrl, newUser)
         resolve(response.data)
       } catch (error) {
         reject(error)
@@ -24,7 +25,6 @@ const create = async (newUser) => {
     }, 3000)
   })
 }
-
 
 const users = async () => {
   const config =  {
@@ -34,4 +34,17 @@ const users = async () => {
   return response.data
 }
 
-export default { setToken, login, users, create }
+const userChats = async ( userId ) => {
+  const config = {
+    headers: { Authorization: token },
+    params: { userId }
+  }
+
+  const response = await axios.get(`${userUrl}/chats`, config)
+  return response.data
+}
+
+
+
+
+export default { setToken, login, users, create, userChats }

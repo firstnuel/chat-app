@@ -9,4 +9,5 @@
 .chat-area{
     display: flex;
     width: 100%;
+    height: 99%;
 }

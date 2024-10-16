@@ -1,6 +1,14 @@
+.user-container{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    width: 30%;
+    border-right: 1px solid var(--border-color);
+    height: 100%;
+}
 .users{
     display: flex;
-    height: 79%;
+    height: 92%;
     gap: 10px;
     flex-direction: column;
     margin-top: 10px;
@@ -13,14 +21,6 @@
     height: 60px;
     width: 100%;
     cursor: pointer;
-}
-.user-container{
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
-    width: 30%;
-    border-right: 1px solid var(--border-color);
-    height: 93%;
 }
 .usrnav{
     display: flex;
@@ -62,6 +62,11 @@
 .nav-view-icon{
     height: 20px !important;
     width: 20px !important;
+}
+.sent-text{
+    font-size: 0.8em;
+    color: var(--border-color);
+    word-wrap: break-word;
 }
 
 @media screen and (max-width: 1024px) {

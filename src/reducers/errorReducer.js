@@ -5,10 +5,10 @@ const errorSlice = createSlice({
   name: 'error',
   initialState: { status: false, msg: '' },
   reducers: {
-    setError(state, action) {
-      const parsedError = parseError(action.payload)
-      state.status = parsedError.status
-      state.msg = parsedError.msg
+    newError(state, action) {
+      const err = action.payload
+      state.status = err.status
+      state.msg = err.msg
     },
     clearError(state) {
       state.status = false
@@ -17,5 +17,13 @@ const errorSlice = createSlice({
   }
 })
 
-export const { setError, clearError } = errorSlice.actions
+export const { newError, clearError } = errorSlice.actions
 export default errorSlice.reducer
+
+
+export const setError = (error) => {
+  return dispatch => {
+    const parsedError = parseError(error)
+    dispatch(newError(parsedError))
+  }
+}
