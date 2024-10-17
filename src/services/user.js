@@ -53,7 +53,29 @@ const userChats = async ( userId ) => {
   return response.data
 }
 
+const createGroup = async (groupData) => {
+  const config = {
+    headers: { Authorization: token },
+  }
+  const response = await axios.post(groupUrl, groupData, config)
+  return response.data
+}
+
+const updateUser = async (userData, userId) => {
+  const config = {
+    headers: { Authorization: token },
+  }
+  const response = await axios.put(`${userUrl}/${userId}`, userData, config)
+  return response.data
+}
+
+const deleteGroup = async (groupId) => {
+  const config = {
+    headers: { Authorization: token },
+  }
+  const response = await axios.delete(`/${groupUrl}/${groupId}`, config)
+  return response.status
+}
 
 
-
-export default { setToken, login, users, create, userChats, groups }
+export default { setToken, login, users, create, userChats, groups, createGroup, deleteGroup, updateUser }

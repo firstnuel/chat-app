@@ -5,7 +5,9 @@ import { logOut } from '../reducers/userReducer'
 import { useNavigate } from 'react-router-dom'
 import ThemeToggle from './ThemeToggle'
 import { viewChats, viewUsers, viewGroups } from '../reducers/viewReducer'
-import { resetReceiver, setReceiver } from '../reducers/receiverReducer'
+import { resetReceiver } from '../reducers/receiverReducer'
+import { useState } from 'react'
+import ProfileView from './ProfileView'
 
 const Nav = () => {
 
@@ -13,6 +15,9 @@ const Nav = () => {
   const navigate = useNavigate()
   const theme = useSelector(state => state.theme)
   const updateUrl = (newView) => window.history.replaceState(null, '', `/${newView}`)
+  const [show, setShow] = useState(true)
+
+  const handleUser = () => setShow(!show)
 
   const handleLogOut = () => {
     dispatch(logOut())
@@ -39,13 +44,14 @@ const Nav = () => {
 
   return(
     <div className="nav">
+      <ProfileView show={show} />
       <div className="lg-icon"><img src={icons.logoIcon} title="Buzz-Me" className="logo-icon" /></div>
       <div className="menu">
         <div className="chat"><img src={theme === 'dark' ? icons.chatIcon :
           icons.darkChatIcon
         } title="Chats" className="icon" onClick={handleChats}/></div>
 
-        <div className="user-st"><img src={theme === 'dark' ? icons.userIcon :
+        <div className="user-st"><img src={theme === 'dark' ? icons.usersIcon :
           icons.darkUserIcon
         } title="Users" className="icon"  onClick={handleUsers}/></div>
 
@@ -60,6 +66,9 @@ const Nav = () => {
       </div>
       <div className="log-out">
         <ThemeToggle />
+
+        <img src={icons.profileIcon} onClick={handleUser} title="User" className="icon" />
+
         <img src={theme === 'dark' ? icons.logoutIcon :
           icons.darkLogoutIcon
         } onClick={handleLogOut} title="Log Out" className="icon" /></div>

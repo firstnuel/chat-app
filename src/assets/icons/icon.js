@@ -17,6 +17,9 @@ import darkSearchIcon from './darkSearchIcon.png'
 import logoIcon from './logoIcon.png'
 import lightIcon from './lightIcon.png'
 import userIcon from './userIcon.png'
+import usersIcon from './usersIcon.png'
+import profileIcon from './profileIcon.png'
+import addGroup from './addGroup.png'
 
 // Export all icons as a single object
 const icons = {
@@ -37,7 +40,10 @@ const icons = {
   darkSearchIcon,
   logoIcon,
   lightIcon,
-  userIcon
+  userIcon,
+  usersIcon,
+  profileIcon,
+  addGroup
 }
 
 export default icons

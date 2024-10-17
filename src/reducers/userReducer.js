@@ -9,6 +9,10 @@ const userSlice = createSlice({
     setUser(state, action){
       return action.payload
     },
+    updatedUser(state, action){
+      const uptUser = action.payload
+      return { ...state, uptUser }
+    },
     logOut(){
       window.localStorage.removeItem('loggedChatAppUser')
       return null
@@ -16,7 +20,7 @@ const userSlice = createSlice({
   }
 })
 
-export const { setUser, logOut } = userSlice.actions
+export const { setUser, logOut, updatedUser } = userSlice.actions
 export default userSlice.reducer
 
 export const fetchAndSetUser = () => {
@@ -41,6 +45,17 @@ export const loginUser = (userData) => {
       }
     } catch (err) {
       dispatch(setError(err))
+    }
+  }
+}
+
+export const updateUser = (userdata, userId) => {
+  return async dispatch => {
+    try {
+      const updUser = await userService.updateUser(userdata, userId)
+      dispatch(updatedUser(updUser))
+    } catch (e) {
+      console.error(e)
     }
   }
 }

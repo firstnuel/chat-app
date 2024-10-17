@@ -1,0 +1,119 @@
+.d-form {
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    max-width: 500px;
+    max-height: 60%;
+    padding: 10px;
+    position: fixed;
+    left: 21%;
+    top: 5.5%;
+    border: 2px solid var(--border-color);
+    border-radius: 0 15px ;
+}
+
+.d-form input {
+    padding: 10px;
+    border-radius: 5px;
+    border: 2px solid var(--primary-text);
+    height: 2.5em;
+    margin-left: 15px;
+    width: auto;
+}
+.form-group {
+    overflow-y: scroll;
+}                                      
+.checkbox-item {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin: 5px;
+} 
+.errr {
+    color: red;
+    font-size: 0.9em;
+}
+#success {
+    color: #17ab17;
+    font-size: 0.9em;
+}
+.create-group-btn{
+    padding: 8px;
+    border-radius: 5px;
+    width: 80%;
+    border: 2px solid var(--primary-text);
+    background-color: var(--primary-text);
+    color: var(--secondary-text);
+    cursor: pointer;
+    align-self: center;
+}
+.close-btn {
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 5px;
+    width: 80%;
+    border: 2px solid var(--primary-text);
+    background-color: gray;
+    cursor: pointer;
+    align-self: center;
+}
+.profile-view {
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    padding-top: 20px;
+    width: 400px;
+    height: 50%;
+    padding: 20px;
+    position: fixed;
+    left: 5%;
+    top: 35%;
+    border: 2px solid var(--border-color);
+    border-radius: 15px 15px 15px 0;
+    align-items: center;
+}
+.p-img {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    border: 1px solid var(--secondary-color);
+}
+.pr-img {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    border: 1px solid var(--secondary-color);
+}
+.name input {
+    padding: 10px;
+    border-radius: 5px;
+    border: 2px solid var(--primary-text);
+    height: 2.5em;
+    margin-left: 15px;
+    width: auto;
+}
+.image-upload input[type="file"] {
+    padding: 10px;
+    border-radius: 5px;
+    border: 2px solid var(--primary-text);
+    background-color: var(--secondary-background);
+    color: var(--primary-text);
+    cursor: pointer;
+    width: 100%;
+    box-sizing: border-box;
+}
+.sub{
+    padding: 8px;
+    border-radius: 5px;
+    width: 100%;
+    border: 2px solid var(--primary-text);
+    background-color: var(--primary-text);
+    color: var(--secondary-text);
+    cursor: pointer;
+    align-self: center;
+}
+.err {
+    color: red;
+    font-size: 0.9em;
+}
+

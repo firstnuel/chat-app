@@ -1,10 +1,12 @@
+import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { setReceiver } from '../reducers/receiverReducer'
-import expandIcon from '../assets/icons/expandIcon.png'
+import icons from '../assets/icons/icon'
+import CreateGroup from './CreateGroup'
+import userService from '../services/user'
+import { addGroup } from '../reducers/groupsReducer'
 import '../styles/users.css'
-import { lastMsg } from '../utils/lastMessage'
-
 
 const GroupCard = ({ group }) => {
 
@@ -23,6 +25,9 @@ const Groups = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const groups = useSelector(state => state.groups)
+  const user = useSelector(state => state.user)
+  const userChats = useSelector(state => state.userChats)
+  const [isDialogOpen, setDialogOpen] = useState(false)
 
   const handleClick = (group) => {
     dispatch(setReceiver(group))
@@ -31,12 +36,31 @@ const Groups = () => {
 
   const dt = (dateString) => dateString ? new Date(dateString) : null
 
+  const handleCreateGroup = async ({ groupName, members }) => {
+    const groupData = {
+      name: groupName,
+      creatorId: user.id,
+      membersIds: members
+    }
+    try{
+      const res = await userService.createGroup(groupData)
+      dispatch(addGroup(res))
+    } catch(e){
+      console.error(e)
+    }
+  }
+
+
   return (
     <>
+      <CreateGroup userChats={userChats} isOpen={isDialogOpen}
+        onClose={() => setDialogOpen(false)}
+        onCreateGroup={handleCreateGroup}/>
       <div className="usrnav">
         <div className='head'>Groups</div>
         <div className='expand'>
-          <img src={expandIcon} className="nav-view-icon icon" />
+          <img src={icons.addGroup} onClick={() => setDialogOpen(true)} className="add-icon icon" title='Add Group'/>
+          <img src={icons.expandIcon} className="nav-view-icon icon" />
         </div>
       </div>
       {groups.length > 0 ? (
