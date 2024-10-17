@@ -5,7 +5,7 @@ const prisma = require('../models/prismaClient')
 const requestLogger = (request, response, next) => {
   logger.info('Method:', request.method)
   logger.info('Path:  ', request.path)
-  logger.info('Path:  ', request.body)
+  logger.info('body:  ', request.body)
   logger.info('-----------')
   next()
 }
