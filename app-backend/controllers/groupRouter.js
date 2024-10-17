@@ -145,5 +145,51 @@ groupRouter.post('/addmember', async (req, res) => {
   }
 })
 
+groupRouter.delete('/:groupId', async (req, res) => {
+  const { groupId } = req.params
+  const user = req.user
+
+  try {
+    // Check if the user is the creator or an admin of the group
+    const group = await prisma.groups.findUnique({
+      where: { id: groupId },
+      include: {
+        members: true // Include members to check for admin status
+      }
+    })
+
+    if (!group) {
+      return res.status(404).json({ error: 'Group not found' })
+    }
+
+    const isAdmin = group.members.some(member => member.userId === user.id && member.admin)
+    const isCreator = group.creatorId === user.id
+
+    if (!isAdmin && !isCreator) {
+      return res.status(403).json({ error: 'Not authorized to delete this group' })
+    }
+
+    // Delete the group members associated with the group
+    await prisma.groupMembers.deleteMany({
+      where: { groupId: groupId }
+    })
+
+    // Optionally, delete all messages associated with the group if needed
+    await prisma.messages.deleteMany({
+      where: { groupId: groupId }
+    })
+
+    // Finally, delete the group itself
+    await prisma.groups.delete({
+      where: { id: groupId }
+    })
+
+    res.status(204).send() // No content to return
+  } catch (e) {
+    logger.error(e)
+    res.status(500).json({ error: 'An error occurred while deleting the group.' })
+  }
+})
+
 
 module.exports = groupRouter
