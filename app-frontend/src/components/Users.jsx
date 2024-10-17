@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { setReceiver } from '../reducers/receiverReducer'
-import expandIcon from '../assets/icons/expandIcon.png'
+import icons from '../assets/icons/icon'
 import '../styles/users.css'
 
 
@@ -9,7 +9,9 @@ const UserCard = ({ user }) => {
 
   return(
     <div className='user-card'>
-      <div className="img">IMG</div>
+      <div className="img">
+        <img src={user.imageLink || icons.profileIcon} alt="" className="profile-img" />
+      </div>
       <div className="card-details">
         <div className="name">{user.name}</div>
         <div className="text">@{user.username}</div>
@@ -42,7 +44,7 @@ const Users = () => {
       <div className="usrnav">
         <div className='head'>Users</div>
         <div className='expand'>
-          <img src={expandIcon} className="nav-view-icon icon" />
+          <img src={icons.expandIcon} className="nav-view-icon icon" />
         </div>
       </div>
       <div className="users" >

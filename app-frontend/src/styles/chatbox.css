@@ -56,15 +56,16 @@
     margin: 10px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 5px;
     margin: 0 10px;
     padding: 10px;
     height: 77%;
     overflow-y: scroll;
 }
-.chat-stgns {
+.dropbtn {
     font-size: 30px;
     font-weight: 500;
+    cursor: pointer;
 }
 
 .receiver,
@@ -72,7 +73,7 @@
     background-color: var(--tertiary-color);
     color: var(--secondary-text);
     padding: 5px 10px;
-    border-radius: 10px;
+    border-radius: 0 10px 10px 10px;
     word-wrap: break-word;
     width: fit-content;
     align-self: flex-start;
@@ -97,7 +98,7 @@
     background-color: var(--secondary-color);
     color: var(--primary-text);
     padding: 5px 10px;
-    border-radius: 10px;
+    border-radius: 10px 0 10px 10px;
     word-wrap: break-word;
     width: fit-content;
     align-self: flex-end;
@@ -128,6 +129,26 @@
 }
 .hide{
     display: none;
+}
+
+.dropdown-content {
+    position: fixed;
+    display: inline-block;
+    right: 3%;
+    top: 7%;
+    width: fit-content;
+    height: fit-content;
+    border: 1px solid var(--border-color);
+}
+.d-content{
+    background-color: #181818;
+    display: flex;
+    padding: 5px;
+    border-bottom: 1px solid var(--border-color);
+    cursor: pointer;
+}
+.d-content:hover{
+    background-color: #424141;
 }
 
 
