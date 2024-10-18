@@ -12,6 +12,7 @@ const middleware = require('./utils/middleware')
 app.use(cors({
   origin: '*'
 }))
+app.use(express.static('dist'))
 app.use(express.json({ limit: '10mb' }))
 app.use(middleware.requestLogger)
 app.use(middleware.tokenExtractor)
