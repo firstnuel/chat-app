@@ -10,7 +10,6 @@ import { clearError } from '../reducers/errorReducer'
 import ThemeToggle from './ThemeToggle'
 
 const LoginForm = () => {
-
   const { reset: usernameReset, ...username } = useField('Username', 'text')
   const { reset: passwordReset, ...password } = useField('Password', 'password')
 
@@ -33,8 +32,9 @@ const LoginForm = () => {
       passwordReset()
     }
   }
+
   useEffect(() => {
-    if(user) navigate('/')
+    if (user) navigate('/')
   }, [user, navigate])
 
   useEffect(() => {
@@ -51,12 +51,17 @@ const LoginForm = () => {
     }
   }, [])
 
+  const handleSignupClick = () => {
+    navigate('/signup')
+  }
+
   return (
     <div className="loginPage">
       <div className="logo-nav">
         <div className="logo-text">
           <div className="main-logo">
-            <img src={logoIcon} className="main-logo-icon" /></div>
+            <img src={logoIcon} className="main-logo-icon" />
+          </div>
           <div className="main-text">Buzz-Me</div>
         </div>
         <ThemeToggle />
@@ -65,25 +70,21 @@ const LoginForm = () => {
         <div className="form-container">
           <div className='login form'>
             <h1 className='w-head wlcome'>Welcome Back</h1>
-            <h2 className='w-body wlcome' style={error.status? style : null} >{error.status? error.msg
-              :'Log into your account'}</h2>
+            <h2 className='w-body wlcome' style={error.status ? style : null}>
+              {error.status ? error.msg : 'Log into your account'}
+            </h2>
             <form onSubmit={handleLogin}>
               <div>
-                <input {...username}
-                  placeholder='username'
-                  autoComplete="username" />
+                <input {...username} placeholder='username' autoComplete="username" />
               </div>
               <div>
-                <input {...password}
-                  autoComplete="current-password"
-                  placeholder='password'
-                  type="password" />
+                <input {...password} autoComplete="current-password" placeholder='password' type="password" />
               </div>
               <div className="button-div">
                 <button type="submit">login</button>
               </div>
-              <div className="sign-up">Dont have an account?
-                <a href="/signup"  className="sign-up-link"> Sign Up</a></div>
+              <div className="sign-up">Don`t have an account?
+                <a href=""className="sign-up-link" onClick={handleSignupClick}> Sign Up</a></div>
             </form>
           </div>
         </div>
@@ -96,7 +97,6 @@ const LoginForm = () => {
         <div className="footer-text">right reserved Emmanuel Ikwunna</div>
       </div>
     </div>
-
   )
 }
 

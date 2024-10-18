@@ -9,9 +9,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { clearError, setError } from '../reducers/errorReducer'
 import ThemeToggle from './ThemeToggle'
 
-
 const SignUpForm = () => {
-
   const error = useSelector(state => state.error)
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -44,7 +42,7 @@ const SignUpForm = () => {
         usernameReset()
         emailReset()
         passwordReset()
-        navigate('/login')
+        navigate('/login') // Navigate to login after successful signup
       }
     } catch (error) {
       dispatch(setError(error))
@@ -53,7 +51,6 @@ const SignUpForm = () => {
       setIsLoading(false)
     }
   }
-
 
   useEffect(() => {
     const typed = new Typed(typedElement.current, {
@@ -68,6 +65,10 @@ const SignUpForm = () => {
       typed.destroy()
     }
   }, [])
+
+  const handleLoginClick = () => {
+    navigate('/login') // Navigate to login page
+  }
 
   return (
     <div className="loginPage">
@@ -84,8 +85,9 @@ const SignUpForm = () => {
         <div className="form-container">
           <div className='login form'>
             <h1 className='w-head wlcome'>Join Us</h1>
-            <h2  style={error.status? style : null} className='w-body wlcome'>{error.status? error.msg
-              :'Create your account'}</h2>
+            <h2 style={error.status ? style : null} className='w-body wlcome'>
+              {error.status ? error.msg : 'Create your account'}
+            </h2>
             <form onSubmit={handleSubmit}>
               <div>
                 <input {...name} placeholder="name" autoComplete="name" />
@@ -100,13 +102,12 @@ const SignUpForm = () => {
                 <input {...password} placeholder="password" type="password" autoComplete="new-password" minLength={5} />
               </div>
               <div className="button-div">
-                <button className={isLoading? 'loading': 'null'}
-                  disabled={isLoading? true : false}
-                  type="submit">{isLoading? 'creating..' :'sign up' }</button>
+                <button className={isLoading ? 'loading' : 'null'}
+                  disabled={isLoading ? true : false}
+                  type="submit">{isLoading ? 'creating..' : 'sign up'}</button>
               </div>
               <div className="sign-up">Already have an account?
-                <a href="/login" className="sign-up-link"> Log In</a>
-              </div>
+                <a href=""className="sign-up-link" onClick={handleLoginClick}> Log In</a></div>
             </form>
           </div>
         </div>
