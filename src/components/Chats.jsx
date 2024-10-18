@@ -5,9 +5,8 @@ import icons from '../assets/icons/icon'
 import '../styles/users.css'
 import { lastMsg, lastMsgTime as lt } from '../utils/lastMessage'
 
-
 const ChatCard = ({ user }) => {
-  return(
+  return (
     <div className='user-card'>
       <div className="img">
         <img src={user.imageLink || icons.profileIcon} alt="" className="profile-img" />
@@ -21,10 +20,9 @@ const ChatCard = ({ user }) => {
 }
 
 const Chats = () => {
-
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const userChats = useSelector(state => state.userChats)
+  const userChats = useSelector(state => state.userChats || [])
 
   const handleClick = (usr) => {
     dispatch(setReceiver(usr))
@@ -41,13 +39,21 @@ const Chats = () => {
       </div>
       {userChats.length > 0 ? (
         <div className="users">
-          {[...userChats].sort((a, b) =>
-            lt(b.sentMessages, b.receivedMessages) -
-          lt(a.sentMessages, a.receivedMessages)
-          ).map(usr =>
-            <div key={usr.id} onClick={() => handleClick(usr)}>
-              <ChatCard key={usr.id} user={usr} />
-            </div>
+          {userChats.length < 2 ? (
+            userChats.map(usr => (
+              <div key={usr.id} onClick={() => handleClick(usr)}>
+                <ChatCard user={usr} />
+              </div>
+            ))
+          ) : (
+            [...userChats].sort((a, b) =>
+              lt(b.sentMessages, b.receivedMessages) -
+              lt(a.sentMessages, a.receivedMessages)
+            ).map(usr => (
+              <div key={usr.id} onClick={() => handleClick(usr)}>
+                <ChatCard user={usr} />
+              </div>
+            ))
           )}
         </div>
       ) : (
