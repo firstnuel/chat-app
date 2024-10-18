@@ -100,8 +100,9 @@ form input {
     font-size: 1.2em;
     font-weight: 900;
     color: var(--secondary-color);
-    text-decoration: none;
+    cursor: pointer;
 }
+
 .footer{
     position: fixed;
     display: flex;

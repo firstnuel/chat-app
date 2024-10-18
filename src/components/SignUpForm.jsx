@@ -107,7 +107,7 @@ const SignUpForm = () => {
                   type="submit">{isLoading ? 'creating..' : 'sign up'}</button>
               </div>
               <div className="sign-up">Already have an account?
-                <a href=""className="sign-up-link" onClick={handleLoginClick}> Log In</a></div>
+                <div className="sign-up-link" onClick={handleLoginClick}> Log In</div></div>
             </form>
           </div>
         </div>
