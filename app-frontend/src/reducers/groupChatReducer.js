@@ -11,10 +11,12 @@ const groupChatSlice = createSlice({
       return action.payload
     },
     newGroupChat(state, action) {
-      state.push(action.payload)
+      const exists = state.some(chat => chat.id === action.payload.id)
+      if (!exists) state.push(action.payload)
     },
     receiveGroupChat(state, action) {
-      state.push(action.payload) // Handle incoming group chat
+      const exists = state.some(chat => chat.id === action.payload.id)
+      if (!exists) state.push(action.payload) // Handle incoming group chat
     },
     clearGroupChat(state) {
       return []

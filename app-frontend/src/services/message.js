@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { token } from './user'
 
-const BaseUrl = '/api/chat'
+const BaseUrl = `${import.meta.env.VITE_API_URL}/api/chat`
 
 const fetch = async (senderId, receiverId) => {
   const config = {

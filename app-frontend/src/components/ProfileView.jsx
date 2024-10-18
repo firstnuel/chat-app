@@ -49,7 +49,7 @@ const ProfileView = ({ show, onclose }) => {
     }
 
     dispatch(updateUser(updatedData, user.id))
-    handleErr('Success')
+    handleErr('Success!')
   }
 
   if (!show) return null

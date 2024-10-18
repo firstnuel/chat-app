@@ -11,7 +11,8 @@ import icons from '../assets/icons/icon'
 import io from 'socket.io-client'
 import '../styles/chatbox.css'
 
-const socket = io('http://192.168.101.110:3000')
+const url = import.meta.env.VITE_API_URL
+const socket = io(url)
 
 const Chatbox = () => {
   const chatEndRef = useRef(null)
@@ -114,7 +115,7 @@ const Chatbox = () => {
               <img src={view !== 'groups' ? (receiver.imageLink || icons.profileIcon) : (receiver.imageLink || icons.groupProfile)}
                 className='profile-img pv-img' onClick={handleView} />
             </div>
-            {preview && <div className="preview-img"><img src={view !== 'groups' ? (receiver.imageLink || icons.profileIcon) : (receiver.imageLink || icons.groupProfile)} 
+            {preview && <div className="preview-img"><img src={view !== 'groups' ? (receiver.imageLink || icons.profileIcon) : (receiver.imageLink || icons.groupProfile)}
               className='view-img' onClick={handleView} /></div>}
             <div className="username">
               <div className="name">{receiver.name}</div>

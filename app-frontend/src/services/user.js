@@ -1,9 +1,9 @@
 import axios from 'axios'
 
-const loginUrl = '/api/login'
-const signupUrl = 'api/signup'
-const userUrl = '/api/users'
-const groupUrl = 'api/groups'
+const loginUrl = `${import.meta.env.VITE_API_URL}/api/login`
+const signupUrl = `${import.meta.env.VITE_API_URL}/api/signup`
+const userUrl = `${import.meta.env.VITE_API_URL}/api/users`
+const groupUrl = `${import.meta.env.VITE_API_URL}/api/groups`
 
 export let token = null
 
