@@ -62,8 +62,8 @@
     gap: 10px;
     flex-direction: column;
     padding-top: 20px;
-    width: 400px;
-    height: 50%;
+    width: 300px;
+    height: fit-content;
     padding: 20px;
     position: fixed;
     left: 5%;
@@ -89,8 +89,7 @@
     border-radius: 5px;
     border: 2px solid var(--primary-text);
     height: 2.5em;
-    margin-left: 15px;
-    width: auto;
+    width: 100%;
 }
 .image-upload input[type="file"] {
     padding: 10px;
@@ -116,4 +115,17 @@
     color: red;
     font-size: 0.9em;
 }
-
+.success {
+    color: #17ab17;
+    font-size: 0.9em;
+}
+.edit{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.sub-btn,
+.close-edit {
+    display: flex;
+    gap: 10px;
+}

@@ -9,7 +9,6 @@ import { Route, Routes, Navigate } from 'react-router-dom'
 import SignUpForm from './components/signUpForm'
 import ChatPage from './components/ChatPage.jsx'
 
-
 const App = () => {
 
   const dispatch = useDispatch()

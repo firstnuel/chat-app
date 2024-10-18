@@ -10,7 +10,16 @@ const chatSlice = createSlice({
       return action.payload
     },
     newChat(state, action) {
-      state.push(action.payload)
+      const exists = state.some(chat => chat.id === action.payload.id)
+      if (!exists) {
+        state.push(action.payload)
+      }
+    },
+    receiveChat(state, action) {
+      const exists = state.some(chat => chat.id === action.payload.id)
+      if (!exists) {
+        state.push(action.payload) // Handle incoming chat from socket
+      }
     },
     clearChat(state) {
       return []
@@ -21,7 +30,7 @@ const chatSlice = createSlice({
 export let LastMsgTime = null
 export const setLastMsgTime = (time) => LastMsgTime = time
 
-export const { setChat, newChat, clearChat } = chatSlice.actions
+export const { setChat, newChat, receiveChat, clearChat } = chatSlice.actions
 export default chatSlice.reducer
 
 export const initializeChats = (senderId, receiverId) => {
@@ -37,14 +46,20 @@ export const initializeChats = (senderId, receiverId) => {
 
 export const sendChat = (chatData) => {
   return async dispatch => {
-    try{
+    try {
       const chat = await messageService.send(chatData)
       const lastTime = chat.createdAt || date
       setLastMsgTime(lastTime)
       dispatch(newChat(chat))
-    } catch (e){
+    } catch (e) {
       console.error(e)
     }
   }
 }
 
+// New function to handle incoming chat messages from Socket.IO
+export const receiveChatMessage = (chatData) => {
+  return dispatch => {
+    dispatch(receiveChat(chatData)) // Dispatch the new chat message
+  }
+}

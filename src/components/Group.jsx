@@ -12,7 +12,9 @@ const GroupCard = ({ group }) => {
 
   return(
     <div className='user-card'>
-      <div className="img">IMG</div>
+      <div className="img">
+        <img src={group.imageLink || icons.groupProfile} alt="" className="profile-img" />
+      </div>
       <div className="card-details">
         <div className="name">{group.name}</div>
         <div className="sent-text">see what members are saying!</div>
@@ -45,6 +47,7 @@ const Groups = () => {
     try{
       const res = await userService.createGroup(groupData)
       dispatch(addGroup(res))
+      return true
     } catch(e){
       console.error(e)
     }

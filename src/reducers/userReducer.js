@@ -9,9 +9,8 @@ const userSlice = createSlice({
     setUser(state, action){
       return action.payload
     },
-    updatedUser(state, action){
-      const uptUser = action.payload
-      return { ...state, uptUser }
+    updatedUser(state, action) {
+      return { ...state, ...action.payload }
     },
     logOut(){
       window.localStorage.removeItem('loggedChatAppUser')
@@ -56,6 +55,7 @@ export const updateUser = (userdata, userId) => {
       dispatch(updatedUser(updUser))
     } catch (e) {
       console.error(e)
+      dispatch(setError(e))
     }
   }
 }
