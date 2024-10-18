@@ -84,7 +84,7 @@ const LoginForm = () => {
                 <button type="submit">login</button>
               </div>
               <div className="sign-up">Don`t have an account?
-                <a href=""className="sign-up-link" onClick={handleSignupClick}> Sign Up</a></div>
+                <div className="sign-up-link" onClick={handleSignupClick}> Sign Up</div></div>
             </form>
           </div>
         </div>
