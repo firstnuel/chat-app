@@ -9,7 +9,9 @@ const signupRouter = require('./controllers/signupRouter')
 const groupRouter = require('./controllers/groupRouter')
 const middleware = require('./utils/middleware')
 
-app.use(cors())
+app.use(cors({
+  origin: '*'
+}))
 app.use(express.json({ limit: '10mb' }))
 app.use(middleware.requestLogger)
 app.use(middleware.tokenExtractor)
