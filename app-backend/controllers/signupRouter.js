@@ -1,6 +1,7 @@
 const signupRouter = require('express').Router()
 const prisma = require('../models/prismaClient')
 const bcrypt = require('bcrypt')
+const logger = require('../utils/logger')
 
 
 signupRouter.post('/', async (req, res) => {
@@ -25,7 +26,7 @@ signupRouter.post('/', async (req, res) => {
     const { passwordHash: _, ...rest } = newUser
     res.status(201).json(rest)
   }catch(e){
-    console.error(e)
+    logger.error(e)
     res.status(500).json({ error: 'An error occurred while creating the user.' })
   }
 })

@@ -13,15 +13,16 @@ const groupChatSlice = createSlice({
     newGroupChat(state, action) {
       state.push(action.payload)
     },
+    receiveGroupChat(state, action) {
+      state.push(action.payload) // Handle incoming group chat
+    },
     clearGroupChat(state) {
       return []
     }
   }
 })
 
-
-
-export const { setGroupChat, newGroupChat, clearGroupChat } = groupChatSlice.actions
+export const { setGroupChat, newGroupChat, receiveGroupChat, clearGroupChat } = groupChatSlice.actions
 export default groupChatSlice.reducer
 
 export const initializeGroupChats = (senderId, groupId) => {
@@ -30,21 +31,27 @@ export const initializeGroupChats = (senderId, groupId) => {
       const groupchats = await messageService.fetchGroup(senderId, groupId)
       dispatch(setGroupChat(groupchats))
     } catch(e) {
-      console.error
+      console.error(e)
     }
   }
 }
 
 export const sendGroupChat = (chatData) => {
   return async dispatch => {
-    try{
+    try {
       const chat = await messageService.sendGroup(chatData)
       const lastTime = chat.createdAt || date
       setLastMsgTime(lastTime)
       dispatch(newGroupChat(chat))
-    } catch (e){
+    } catch (e) {
       console.error(e)
     }
   }
 }
 
+// New function to handle incoming group chat messages
+export const receiveGroupChatMessage = (chatData) => {
+  return dispatch => {
+    dispatch(receiveGroupChat(chatData)) // Dispatch the received group chat message
+  }
+}

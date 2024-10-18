@@ -4,12 +4,12 @@ import '../styles/profile.css'
 const CreateGroup = ({ userChats, onCreateGroup, isOpen, onClose }) => {
   const [groupName, setGroupName] = useState('')
   const [selectedUsers, setSelectedUsers] = useState([])
-  const [err, setError] = useState(false)
+  const [err, setErr] = useState({ status: false, msg:'' })
 
-  const handleErr = () => {
-    setError(true)
+  const handleErr = (message) => {
+    setErr({ status: true, msg: message })
     setTimeout(() => {
-      setError(false)
+      setErr({ status: false, msg:'' })
     }, 1500)
   }
 
@@ -28,19 +28,21 @@ const CreateGroup = ({ userChats, onCreateGroup, isOpen, onClose }) => {
   const handleSubmit = (event) => {
     event.preventDefault()
     if (!groupName || selectedUsers.length === 0) {
-      handleErr()
+      handleErr('Select at least one User')
       return
     }
 
-    onCreateGroup({ groupName, members: selectedUsers })
-    setGroupName('')
-    setSelectedUsers([])
+    if (onCreateGroup({ groupName, members: selectedUsers })) {
+      setGroupName('')
+      setSelectedUsers([])
+      handleErr('Success!')
+    }
   }
 
   return (
     <dialog className="create-group" open={isOpen}>
       <form onSubmit={handleSubmit} className='d-form'>
-        {err && <label className='errr'>Select at least one user.</label>}
+        {err.status && <div className={err.msg !== 'Success!'? 'err' : 'success'}>{err.msg}</div>}
         <div className="form-group">
           <input
             type="text"

@@ -2,6 +2,9 @@ const chatRouter = require('express').Router()
 const prisma = require('../models/prismaClient')
 const logger = require('../utils/logger')
 
+// Assuming you have Socket.IO initialized and available
+
+
 chatRouter.get('/', async (req, res) => {
   const { senderId, receiverId } = req.query
   const user = req.user
@@ -29,8 +32,6 @@ chatRouter.get('/', async (req, res) => {
   }
 })
 
-
-
 chatRouter.get('/group', async (req, res) => {
   const { senderId, groupId } = req.query
   const user = req.user
@@ -53,9 +54,10 @@ chatRouter.get('/group', async (req, res) => {
   }
 })
 
-
+// POST route for direct messages
 chatRouter.post('/', async (req, res) => {
   const { receiverId, senderId, content, lastMsgTime } = req.body
+  const io = req.app.get('io')
 
   const receiver = await prisma.users.findUnique({
     where: {
@@ -67,24 +69,30 @@ chatRouter.post('/', async (req, res) => {
   if (senderId !== user.id) return res.status(401).json({ error: 'Not Authorized' })
   if (!receiver) return res.status(404).json({ error: 'invalid message receiver' })
 
-  try{
+  try {
     const newMsg = await prisma.messages.create({
-      data:{
+      data: {
         content,
         senderId,
         receiverId,
         lastMsgTime
       }
     })
+
+    // Emit the new message to all clients via Socket.IO after it's saved
+    io.emit('receiveMessage', newMsg)
+
     res.status(201).json(newMsg)
-  }catch(e) {
+  } catch (e) {
     logger.error(e)
     res.status(500).json({ error: 'An error occurred while sending message.' })
   }
 })
 
+// POST route for group messages
 chatRouter.post('/group', async (req, res) => {
   const { groupId, senderId, content, lastMsgTime } = req.body
+  const io = req.app.get('io')
   const user = req.user
 
   const group = await prisma.groups.findUnique({
@@ -120,46 +128,14 @@ chatRouter.post('/group', async (req, res) => {
       }
     })
 
+    // Emit the new group message to all clients via Socket.IO
+    io.emit('receiveMessage', newMsg)
+
     res.status(201).json(newMsg)
   } catch (e) {
     logger.error(e)
     res.status(500).json({ error: 'An error occurred while sending the message.' })
   }
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// chatRouter.put('/', async (req, res) => {
-//     const { content } = req.body
-
-//     const receiver
-// })
-
-
-
-
-
-
-
-
-
-
 
 module.exports = chatRouter

@@ -20,6 +20,7 @@ import userIcon from './userIcon.png'
 import usersIcon from './usersIcon.png'
 import profileIcon from './profileIcon.png'
 import addGroup from './addGroup.png'
+import groupProfile from './groupProfile.png'
 
 // Export all icons as a single object
 const icons = {
@@ -43,7 +44,8 @@ const icons = {
   userIcon,
   usersIcon,
   profileIcon,
-  addGroup
+  addGroup,
+  groupProfile
 }
 
 export default icons
