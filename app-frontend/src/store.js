@@ -9,6 +9,7 @@ import userChatsReducer from './reducers/userChatsReducer'
 import groupChatReducer from './reducers/groupChatReducer'
 import viewReducer from './reducers/viewReducer'
 import groupsReducers from './reducers/groupsReducer'
+import expandReducer from './reducers/expandReducer'
 
 
 const store = configureStore({
@@ -22,7 +23,8 @@ const store = configureStore({
     'userChats': userChatsReducer,
     'groupChat': groupChatReducer,
     'groups': groupsReducers,
-    'view': viewReducer
+    'view': viewReducer,
+    'expand': expandReducer
   }
 })
 

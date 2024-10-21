@@ -9,9 +9,10 @@ import '../styles/users.css'
 const View = () => {
 
   const view = useSelector(state => state.view)
+  const expand = useSelector(state => state.expand)
 
   return(
-    <div className='user-container'>
+    <div className={expand? 'user-container' : 'user-container-two'}>
       {view === 'chats'? <Chats />
         : view === 'users'? <Users />
           : <Groups />

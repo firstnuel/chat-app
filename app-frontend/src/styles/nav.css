@@ -23,11 +23,22 @@
     height: 40px;
     width: 40px;
 }
+.log-out{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+
+
+
+
+
+
+
 
 @media screen and (max-width: 700px) {
-    .nav,
-    .menu,
-    .user-container{
-        display: none;
+    .nav{
+        width: 15%;
     }
 }

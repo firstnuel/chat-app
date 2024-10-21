@@ -6,6 +6,8 @@ import { useNavigate } from 'react-router-dom'
 import ThemeToggle from './ThemeToggle'
 import { viewChats, viewUsers, viewGroups } from '../reducers/viewReducer'
 import { resetReceiver } from '../reducers/receiverReducer'
+import Expand from './Expand'
+import { setExpandTrue } from '../reducers/expandReducer'
 import { useState } from 'react'
 import ProfileView from './ProfileView'
 
@@ -28,24 +30,28 @@ const Nav = () => {
     updateUrl('chats')
     dispatch(resetReceiver())
     dispatch(viewChats())
+    dispatch(setExpandTrue())
   }
 
   const handleUsers = () => {
     updateUrl('users')
     dispatch(resetReceiver())
     dispatch(viewUsers())
+    dispatch(setExpandTrue())
   }
 
   const handleGroups = () => {
     updateUrl('groups')
     dispatch(resetReceiver())
     dispatch(viewGroups())
+    dispatch(setExpandTrue())
   }
 
   return(
     <>
       <ProfileView show={show} onclose={() => setShow(!show)}/>
       <div className="nav">
+        <Expand />
         <div className="lg-icon"><img src={icons.logoIcon} title="Buzz-Me" className="logo-icon" /></div>
         <div className="menu">
           <div className="chat"><img src={theme === 'dark' ? icons.chatIcon :

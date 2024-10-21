@@ -28,6 +28,7 @@ const Chatbox = () => {
   const groupChats = useSelector(state => state.groupChat)
   const users = useSelector(state => state.users)
   const view = useSelector(state => state.view)
+  const expand = useSelector(state => state.expand)
 
   const chats = view !== 'groups' ? onOnechats : groupChats
 
@@ -101,13 +102,13 @@ const Chatbox = () => {
   }
 
   if (!receiver) return (
-    <div className='chat-page'>
+    <div className={!expand? 'chat-page' : 'chat-page-two'}>
       <div className="no-chat-info">Click on a user or group to start chat</div>
     </div>
   )
 
   return (
-    <div className="chat-page">
+    <div className={!expand? 'chat-page' : 'chat-page-two'}>
       <div className="chat-head">
         <div className="user-details">
           <div className="user-div">
@@ -155,7 +156,7 @@ const Chatbox = () => {
           ) : <div className="chat-load">Say Hi...</div>
         }
       </div>
-      <div className="chat-input">
+      <div className={!expand? 'chat-input' : 'chat-input input-add'}>
         <input {...chatBox} onKeyDown={handleKeyPress} />
         <img src={icons.sendIcon} onClick={handleSend} className="send-icon" />
       </div>

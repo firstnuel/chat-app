@@ -5,6 +5,7 @@ import { setReceiver } from '../reducers/receiverReducer'
 import icons from '../assets/icons/icon'
 import CreateGroup from './CreateGroup'
 import userService from '../services/user'
+import { setExpand } from '../reducers/expandReducer'
 import { addGroup } from '../reducers/groupsReducer'
 import '../styles/users.css'
 
@@ -31,6 +32,7 @@ const Groups = () => {
   const [isDialogOpen, setDialogOpen] = useState(false)
 
   const handleClick = (group) => {
+    dispatch(setExpand())
     dispatch(setReceiver(group))
     navigate(`/chats/groups/${group.id}`, { replace: false })
   }
