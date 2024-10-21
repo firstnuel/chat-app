@@ -1,13 +1,15 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { setReceiver } from '../reducers/receiverReducer'
+import { setExpand } from '../reducers/expandReducer'
 import icons from '../assets/icons/icon'
 import '../styles/users.css'
 import { lastMsg, lastMsgTime as lt } from '../utils/lastMessage'
 
 const ChatCard = ({ user }) => {
+
   return (
-    <div className='user-card'>
+    <div className="user-card">
       <div className="img">
         <img src={user.imageLink || icons.profileIcon} alt="" className="profile-img" />
       </div>
@@ -26,16 +28,14 @@ const Chats = () => {
 
   const handleClick = (usr) => {
     dispatch(setReceiver(usr))
+    dispatch(setExpand())
     navigate(`/chats/${usr.id}`, { replace: false })
   }
 
   return (
     <>
       <div className="usrnav">
-        <div className='head'>Chats</div>
-        <div className='expand'>
-          <img src={icons.expandIcon} className="nav-view-icon icon" />
-        </div>
+        <div className="head">Chats</div>
       </div>
       {userChats.length > 0 ? (
         <div className="users">

@@ -133,15 +133,21 @@ form input {
 @media screen and (max-width: 600px) {
 
     .form-container{
-        width: 80%;
-        height: 60%;
+        width: 90%;
+        height: 65%;
+    }
+    .container{
+        display: block;
     }
     .welocme{
-        width: 100%;
+        display: none;
     }
     .footer{
         position: absolute;
         bottom: 0%;
+    }
+    .sign-up{
+        height: 50p;
     }
 
 }

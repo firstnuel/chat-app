@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { setReceiver } from '../reducers/receiverReducer'
+import { setExpand } from '../reducers/expandReducer'
 import icons from '../assets/icons/icon'
 import '../styles/users.css'
 
@@ -36,6 +37,7 @@ const Users = () => {
   )
   const handleClick = (usr) => {
     dispatch(setReceiver(usr))
+    dispatch(setExpand())
     navigate(`/chats/${usr.id}`, { replace: false })
   }
 
