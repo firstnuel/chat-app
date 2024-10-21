@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { useField } from '../hooks/useField'
 import { useEffect, useRef, useState } from 'react'
+import { fetchUsersChats } from '../reducers/userChatsReducer'
 import { initializeChats, sendChat, LastMsgTime, receiveChatMessage } from '../reducers/chatReducer'
 import { initializeGroupChats, sendGroupChat, receiveGroupChatMessage } from '../reducers/groupChatReducer'
 import { formatDate, isSameMinute, isSameMonthAndYear } from '../utils/dateformatter'
@@ -27,6 +28,7 @@ const Chatbox = () => {
   const onOnechats = useSelector(state => state.chats)
   const groupChats = useSelector(state => state.groupChat)
   const users = useSelector(state => state.users)
+  const usr = useSelector(state => state.usr)
   const view = useSelector(state => state.view)
   const expand = useSelector(state => state.expand)
 
@@ -56,6 +58,7 @@ const Chatbox = () => {
       socket.on('receiveMessage', (message) => {
         if (view !== 'groups') {
           dispatch(receiveChatMessage(message))
+          dispatch(fetchUsersChats(usr.id))
         } else {
           dispatch(receiveGroupChatMessage(message))
         }
@@ -65,7 +68,7 @@ const Chatbox = () => {
         socket.emit('leave', { senderId: sender.id, receiverId: receiver.id })
       }
     }
-  }, [dispatch, sender, receiver, view])
+  }, [dispatch, sender, receiver, view, usr])
 
   const handleSend = () => {
     if (chatBox.value.trim() && receiver) {
