@@ -1,0 +1,4 @@
+postgres-data
+redis-data
+prod
+node_modules
