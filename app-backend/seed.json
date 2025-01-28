@@ -1,0 +1,36 @@
+[
+    {
+        "name": "Sarah Thompson",
+        "username": "sarahT",
+        "password": "SarahPass123",
+        "email": "sarah.thompson@gmail.com"
+    },
+    
+    {
+        "name": "Miguel Rodriguez",
+        "username": "miguelR",
+        "password": "MiguelR2024",
+        "email": "miguel.rodriguez@gmail.com"
+    },
+    
+    {
+        "name": "Aisha Patel",
+        "username": "aisha_p",
+        "password": "AishaP2024!",
+        "email": "aisha.patel@gmail.com"
+    },
+    
+    {
+        "name": "James Wilson",
+        "username": "jwilson",
+        "password": "JWilson#25",
+        "email": "j.wilson@gmail.com"
+    },
+    
+    {
+        "name": "Yuki Tanaka",
+        "username": "yukiT",
+        "password": "YukiTan2024",
+        "email": "yuki.tanaka@gmail.com"
+    }
+]

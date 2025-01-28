@@ -6,7 +6,9 @@ COPY --chown=node:node . .
 
 RUN npm ci
 
+# Generate Prisma client
 RUN npx prisma generate
 
+USER node
 
-CMD npm start
+CMD ["sh", "-c", "npx prisma migrate deploy && npm start"]

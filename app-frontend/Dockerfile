@@ -12,5 +12,3 @@ RUN npm i -g serve
 
 CMD serve -s dist
 
-
-
